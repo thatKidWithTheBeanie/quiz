@@ -1,0 +1,101 @@
+import time
+import random
+import operator
+### ------------------------
+### sets number of questions
+questions = 10
+### ------------------------------------
+### times add takeaway
+### to be called at random for questions
+tat =(operator.mul, "*"),(operator.add, "+"),(operator.sub, "-")
+
+### ------------------------------
+### checks answer
+### if not a number then try again
+def asknum(prompt=''):
+    while True:
+      try:
+### try again
+        return int(input(prompt))
+      except ValueError:
+        print("please enter a number")
+
+### -----------------------
+### asks for a yes or a no
+def yorn(prompt=''):
+    while True:
+        val = input(prompt).lower()
+### -------------------
+### yes
+        if val == 'yes':
+            return True
+### -------------------
+### no
+        elif val == 'no':
+            return False
+### --------------------
+### if answer is neither
+### asks to try again
+        else:
+            print("please enter yes or no")
+### --------------------------
+### if this is the parent file
+### do this:
+if __name__ == '__main__':
+    print("What is your name? ")
+### ----------------
+### sets name
+    name = input ("").title()
+    time.sleep(1)
+    print("Which class do you wish to input results for? ")
+### ----------------
+### sets class name
+    class_name = input("")
+    time.sleep(1)
+### ----------------
+### counts score
+    score = 0
+    for _ in range(questions):
+### sets question number
+### from 1 to 100
+        x = random.randint(1,100)
+        y = random.randint(1,100)
+        op, symbol = random.choice(tat)
+### ----------------------------------
+### asks question
+        print("What is", x, symbol, y)
+### if answer is correct
+        if asknum() == op(x, y):
+            print("Correct")
+            score += 1
+### if answer is incorrect
+        else:
+            print("Incorrect")
+### ----------------------
+### ---- END OF QUIZ ----
+### ----------------------
+###
+    print("Well done", name, "!")
+    time.sleep(1)
+    print("you have completed the test")
+    time.sleep(1)
+### -----------------
+### gives final score
+    print("your final score is ", score, "out of ", questions)
+    time.sleep(1)
+### ----------------------
+### creates file
+### names file accordingly
+    filename = class_name + ".txt"
+### ----------------------
+### opens file
+    with open(filename, 'a') as f:
+        f.write(str(name) + " : " + str(score) + '\n')
+### ----------------------
+### see file?
+    if yorn("Do you wish to see how everyone else did?"):
+        with open(filename, 'r') as f:
+            print(f.read())
+### quit
+    else:
+        input ("Press a key to quit")
