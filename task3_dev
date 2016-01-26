@@ -1,0 +1,135 @@
+import time
+import random
+import operator
+### ------------------------
+### sets number of questions
+questions = 10
+### ------------------------------------
+### times add takeaway
+### to be called at random for questions
+tat =(operator.mul, "X"),(operator.add, "+"),(operator.sub, "-")
+### ------------------------------
+### checks answer
+### if not a number then try again
+def asknum(prompt=''):
+    while True:
+      try:
+### try again
+        return int(input(prompt))
+      except ValueError:
+        print("please enter a number")
+#### ---------------------------------
+####defines sorting
+def sorting():
+    sort = input("")
+    if sort == "A":
+        print("x")
+        sortalpha.sort()
+        print(f.read())
+    if sort == "B":
+        print("x")
+####        do that
+        
+    if sort == "C":
+        print("y")
+####        or this
+    else:
+        print("please enter A, B or C")
+        sorting()
+
+
+### -----------------------
+### asks for a yes or a no
+def yorn(prompt=''):
+    while True:
+        val = input(prompt).lower()
+### -------------------
+### yes
+        if val == 'yes':
+            return True
+### -------------------
+### no
+        elif val == 'no':
+            return False
+### --------------------
+### if answer is neither
+### asks to try again
+        else:
+            print("please enter yes or no")
+
+
+### --------------------------
+### if this is the parent file
+### do this:
+if __name__ == '__main__':
+    print("What is your name? ")
+### ----------------
+### sets name
+    name = input ("").title()
+    time.sleep(1)
+    print("Which class do you wish to input results for? ")
+### ----------------
+### sets class name
+    class_name = input("")
+    time.sleep(1)
+    
+### ----------------
+### counts score
+    score = 0
+    for _ in range(questions):
+### sets question number
+### from 1 to 100
+        x = random.randint(1,10)
+        y = random.randint(1,10)
+        op, symbol = random.choice(tat)
+### ----------------------------------
+### asks question
+        print("What is", x, symbol, y)
+### if answer is correct
+        if asknum() == op(x, y):
+            print("Correct")
+            score += 1
+### if answer is incorrect
+        else:
+            print("Incorrect")
+### ----------------------
+### ---- END OF QUIZ ----
+### ----------------------
+###
+            
+    print("Well done", name, "!")
+    time.sleep(1)
+    print("you have completed the test")
+    time.sleep(1)
+### -----------------
+### gives final score
+    print("your final score is ", score, "out of ", questions)
+    time.sleep(1)
+### ----------------------
+### creates file
+### names file accordingly
+    filename = class_name + ".txt"
+### ------------------------------------
+### sorting variables
+    sortalpha = filename.readlines()
+    
+### ----------------------
+### opens file
+    with open(filename, 'a') as f:
+        f.write(str(name) + " : " + str(score) + '\n')
+### ----------------------
+### see file?
+    print("Do you want to see what everyone else did?")
+    if yorn(""):
+        with open(filename, 'r') as f:
+            print("")
+#### --------------------------------------------
+### sorting data?
+            print("how would you like it sorted?")
+            print("enter 'A' for alphabeitcally")
+            print("enter 'B' for highest to lowest score")
+            print("enter 'C' for average score highest to lowest")
+            sorting()
+### quit
+    else:
+        input ("Press a key to quit")
